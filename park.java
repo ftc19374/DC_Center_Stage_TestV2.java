@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static java.lang.Math.round;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -33,17 +35,17 @@ public class park extends LinearOpMode {
         Park();
     }
 
-    void Movement(int fL, int fR, int bL, int bR, int timeoutS, double speed) {
+    void Movement(float fL, float fR, float bL, float bR, int timeoutS, double speed) {
         int ntfl;
         int ntfr;
         int ntbl;
         int ntbr;
 
         if(opModeIsActive()){
-            ntfl = frontLeft.getCurrentPosition() + fL*1000;
-            ntfr = frontRight.getCurrentPosition() + fR*1000;
-            ntbl = backLeft.getCurrentPosition() + bL*1000;
-            ntbr = backRight.getCurrentPosition() + bR*1000;
+            ntfl = frontLeft.getCurrentPosition() + round(fL*1000);
+            ntfr = frontRight.getCurrentPosition() + round(fR*1000);
+            ntbl = backLeft.getCurrentPosition() + round(bL*1000);
+            ntbr = backRight.getCurrentPosition() + round(bR*1000);
             frontLeft.setTargetPosition(ntfl);
             frontRight.setTargetPosition(ntfr);
             backLeft.setTargetPosition(ntbl);
@@ -81,8 +83,6 @@ public class park extends LinearOpMode {
             frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            sleep(timeoutS);
         }
     }
 
@@ -93,6 +93,9 @@ public class park extends LinearOpMode {
     }
 
     void Park() {
-        Movement(-1,1,-1,1,5,0.5);
+        Movement(-0.75f,0.75f,-0.75f,0.75f,5,0.5);
+        Movement(-2.6f,-2.6f,2.6f, 2.6f, 5, 0.5);
+        Movement(0.7f, -0.7f, 0.7f, -0.7f, 5, 0.5);
+        Movement(-0.7f,-0.7f, 0.7f, 0.7f, 5, 0.5);
     }
 }
