@@ -16,7 +16,7 @@ public class DC_Center_Stage_TestV2 extends LinearOpMode{
     DcMotor Front_Left_Wheel  = null;
     DcMotor Back_Right_Wheel  = null;
     DcMotor Back_Left_Wheel   = null;
-    //DcMotor Intake_Motor_1    = null;
+    DcMotor Intake_Motor_1    = null;
     float Power = 0;
     @Override
     public void runOpMode() {
@@ -26,7 +26,7 @@ public class DC_Center_Stage_TestV2 extends LinearOpMode{
         Back_Right_Wheel  = hardwareMap.get(DcMotor.class, "Br_motor");
         Back_Left_Wheel   = hardwareMap.get(DcMotor.class, "Bl_motor");
         Back_Left_Wheel.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Intake_Motor_1    = hardwareMap.get(DcMotor.class, "Intake_Motor_1");
+        Intake_Motor_1    = hardwareMap.get(DcMotor.class, "Intake_Motor_1");
         waitForStart();
         while(opModeIsActive()) {
             double y = -gamepad1.left_stick_y; //reverses the y axis allowing for only forward and backwards movement
@@ -34,7 +34,7 @@ public class DC_Center_Stage_TestV2 extends LinearOpMode{
             double rx = gamepad1.right_stick_x;
 
 
-            Front_Right_Wheel.setPower((y + x - rx));
+            Front_Right_Wheel.setPower(-(y + x - rx)); //front right wheel always goes backwards on new driver control station when not inverted
             Front_Left_Wheel.setPower((y - x + rx));
             Back_Left_Wheel.setPower((y + x + rx));
             Back_Right_Wheel.setPower(-(y - x - rx));
@@ -43,14 +43,14 @@ public class DC_Center_Stage_TestV2 extends LinearOpMode{
             }
 
             //5th motor controls intake via the left and right bumpers (right pulls in, left goes out)
-            if (gamepad2.right_bumper) {
+            if (gamepad1.right_bumper) {
               Power += 0.1;
-               // Intake_Motor_1.setPower(Power);
+                Intake_Motor_1.setPower(Power);
                 sleep(250);
             }
-            else if (gamepad2.left_bumper) {
+            else if (gamepad1.left_bumper) {
                 Power -= 0.1;
-                //Intake_Motor_1.setPower(Power);
+               Intake_Motor_1.setPower(Power);
                 sleep(250);
             }
             //left bumper pushes pixels out to prevent control of too many pixels at once
