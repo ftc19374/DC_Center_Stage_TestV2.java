@@ -93,9 +93,7 @@ public class park extends LinearOpMode {
     }
 
     void Park() {
-        Movement(-0.75f,0.75f,-0.75f,0.75f,5,0.5);
-        Movement(-2.6f,-2.6f,2.6f, 2.6f, 5, 0.5);
-        Movement(0.7f, -0.7f, 0.7f, -0.7f, 5, 0.5);
-        Movement(-0.7f,-0.7f, 0.7f, 0.7f, 5, 0.5);
+        Movement(-1.2f,1.2f,-1.2f,1.2f,5,0.5);
+        Movement(-3.3f,-3.3f,3.3f, 3.3f, 5, 0.5);
     }
 }
